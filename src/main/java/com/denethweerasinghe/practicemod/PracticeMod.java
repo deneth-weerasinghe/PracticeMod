@@ -3,30 +3,22 @@ package com.denethweerasinghe.practicemod;
 import com.denethweerasinghe.practicemod.blocks.BlockOne;
 import com.denethweerasinghe.practicemod.blocks.BlockTwo;
 import com.denethweerasinghe.practicemod.blocks.ModBlocks;
+import com.denethweerasinghe.practicemod.items.ItemOne;
 import com.denethweerasinghe.practicemod.setup.ClientProxy;
 import com.denethweerasinghe.practicemod.setup.IProxy;
 import com.denethweerasinghe.practicemod.setup.ModSetup;
 import com.denethweerasinghe.practicemod.setup.ServerProxy;
 import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
-import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
-import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import java.util.stream.Collectors;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod("practicemod")
@@ -66,15 +58,19 @@ public class PracticeMod {
         @SubscribeEvent
         public static void onItemsRegistry(final RegistryEvent.Register<Item> event) {
 
-            Item.Properties properties = new Item.Properties().group(setup.itemGroup); // adds the universal property of being in a specific category of items (ItemGroup)
+            Item.Properties properties = new Item.Properties().group(setup.creativeTab); // adds the universal property of being in a specific category of items (ItemGroup)
             // used for placing the following items being registered into a "creative tab" (Minecraft's "cheat menu")
 
             event.getRegistry().registerAll(
+
+                    // items associated with blocks, whose registry event will be loaded after the blocks
+                    // needed to keep the blocks in the inventory, otherwise it will be just a blocks in the world
                     new BlockItem(ModBlocks.BLOCKONE, properties).setRegistryName("blockone"),
-                    new BlockItem(ModBlocks.BLOCKTWO, properties).setRegistryName("blocktwo")
+                    new BlockItem(ModBlocks.BLOCKTWO, properties).setRegistryName("blocktwo"),
+
+                    // complex items/non-BlockItems
+                    new ItemOne() // properties defined in separate class because it'd be a mess to define a complex item object here whereas BlockItems have simple properties
             );
-            // items associated with blocks, whose registry event will be loaded after the blocks
-            // needed to keep the blocks in the inventory, otherwise it will be just a blocks in the world
         }
     }
 }

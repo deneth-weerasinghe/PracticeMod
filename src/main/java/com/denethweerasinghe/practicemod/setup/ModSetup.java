@@ -6,7 +6,7 @@ import net.minecraft.item.ItemStack;
 
 public class ModSetup {
 
-    public ItemGroup itemGroup = new ItemGroup("practicemod") {
+    public ItemGroup creativeTab = new ItemGroup("practicemod") {
         @Override
         public ItemStack createIcon() {
             return new ItemStack(ModBlocks.BLOCKONE);

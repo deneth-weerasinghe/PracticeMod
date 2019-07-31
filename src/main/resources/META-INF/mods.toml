@@ -14,22 +14,22 @@ issueTrackerURL="http://my.issue.tracker/" #optional
 # The modid of the mod
 modId="practicemod" #mandatory
 # The version number of the mod - there's a few well known ${} variables useable here or just hardcode it
-version="${file.jarVersion}" #mandatory
+version="${PRE-ALPHA}" #mandatory
  # A display name for the mod
 displayName="Practice Mod" #mandatory
 # A URL to query for updates for this mod. See the JSON update specification <here>
 updateJSONURL="http://myurl.me/" #optional
 # A URL for the "homepage" for this mod, displayed in the mod UI
-displayURL="http://example.com/" #optional
+displayURL="https://github.com/deneth-weerasinghe/PracticeMod" #optional
 # A file name (in the root of the mod JAR) containing a logo for display
 logoFile="practicemod.png" #optional
 # A text field displayed in the mod UI
-credits="Thanks for this example mod goes to Java" #optional
+credits="Credit to McJty for his tutorial on modding :)" #optional
 # A text field displayed in the mod UI
 authors="Deneth Weerasinghe" #optional
 # The description text for the mod (multi line!) (#mandatory)
 description='''
-Just a practice mod!
+Just a practice mod to learn modding and test out stuff!
 '''
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
 [[dependencies.practicemod]] #optional
