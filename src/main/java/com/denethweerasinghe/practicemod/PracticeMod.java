@@ -4,10 +4,7 @@ import com.denethweerasinghe.practicemod.blocks.BlockOne;
 import com.denethweerasinghe.practicemod.blocks.BlockTwo;
 import com.denethweerasinghe.practicemod.blocks.ModBlocks;
 import com.denethweerasinghe.practicemod.items.ItemOne;
-import com.denethweerasinghe.practicemod.setup.ClientProxy;
-import com.denethweerasinghe.practicemod.setup.IProxy;
 import com.denethweerasinghe.practicemod.setup.ModSetup;
-import com.denethweerasinghe.practicemod.setup.ServerProxy;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -24,10 +21,6 @@ import org.apache.logging.log4j.Logger;
 @Mod("practicemod")
 public class PracticeMod {
 
-    public static IProxy proxy = DistExecutor.runForDist(() -> () -> new ClientProxy(), () -> () -> new ServerProxy());
-    // proxy will hold two different values depending if the code is server side or client side
-
-
     public static ModSetup setup = new ModSetup();
     // Directly reference a log4j logger.
     private static final Logger LOGGER = LogManager.getLogger();
@@ -38,9 +31,7 @@ public class PracticeMod {
     }
 
     private void setup(final FMLCommonSetupEvent event) {
-        proxy.getClientWorld(); // will either run as usual or throw an exception depending if the code runs server (bad) or client side (as it should be)
         setup.init();
-        proxy.init();
     }
 
 
