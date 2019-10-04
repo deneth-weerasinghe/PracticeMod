@@ -1,6 +1,7 @@
 package com.denethweerasinghe.practicemod;
 
 import com.denethweerasinghe.practicemod.blocks.BlockOne;
+import com.denethweerasinghe.practicemod.blocks.BlockThree;
 import com.denethweerasinghe.practicemod.blocks.BlockTwo;
 import com.denethweerasinghe.practicemod.blocks.ModBlocks;
 import com.denethweerasinghe.practicemod.items.ItemOne;
@@ -10,7 +11,6 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -43,8 +43,9 @@ public class PracticeMod {
         public static void onBlocksRegistry(final RegistryEvent.Register<Block> event) {
             event.getRegistry().registerAll(
                     new BlockOne(),
-                    new BlockTwo()
-            ); // blocks registry event
+                    new BlockTwo(),
+                    new BlockThree()
+            ); // registry events for blocks
         }
         @SubscribeEvent
         public static void onItemsRegistry(final RegistryEvent.Register<Item> event) {
@@ -58,6 +59,7 @@ public class PracticeMod {
                     // needed to keep the blocks in the inventory, otherwise it will be just a blocks in the world
                     new BlockItem(ModBlocks.BLOCKONE, properties).setRegistryName("blockone"),
                     new BlockItem(ModBlocks.BLOCKTWO, properties).setRegistryName("blocktwo"),
+                    new BlockItem(ModBlocks.BLOCKTHREE, properties).setRegistryName("blockthree"),
 
                     // complex items/non-BlockItems
                     new ItemOne() // properties defined in separate class because it'd be a mess to define a complex item object here whereas BlockItems have simple properties

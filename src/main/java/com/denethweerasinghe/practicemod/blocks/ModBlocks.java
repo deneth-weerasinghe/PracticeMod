@@ -7,4 +7,6 @@ public class ModBlocks {
     public static BlockOne BLOCKONE;
     @ObjectHolder("practicemod:blocktwo")
     public static BlockTwo BLOCKTWO;
+    @ObjectHolder("practicemod:blockthree")
+    public static BlockThree BLOCKTHREE;
 }
