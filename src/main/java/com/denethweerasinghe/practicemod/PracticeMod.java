@@ -5,12 +5,17 @@ import com.denethweerasinghe.practicemod.blocks.BlockThree;
 import com.denethweerasinghe.practicemod.blocks.BlockTwo;
 import com.denethweerasinghe.practicemod.blocks.ModBlocks;
 import com.denethweerasinghe.practicemod.items.ItemOne;
+import com.denethweerasinghe.practicemod.setup.ClientProxy;
+import com.denethweerasinghe.practicemod.setup.IProxy;
 import com.denethweerasinghe.practicemod.setup.ModSetup;
+import com.denethweerasinghe.practicemod.setup.ServerProxy;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -20,6 +25,9 @@ import org.apache.logging.log4j.Logger;
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod("practicemod")
 public class PracticeMod {
+
+    public static IProxy proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> ServerProxy::new);
+    // proxy will hold two different values depending if code is server side or client side
 
     public static ModSetup setup = new ModSetup();
     // Directly reference a log4j logger.
@@ -31,9 +39,10 @@ public class PracticeMod {
     }
 
     private void setup(final FMLCommonSetupEvent event) {
+        proxy.getClientWorld(); // will either run as usual or throw an exception uf the code runs on server side
         setup.init();
+        proxy.init();
     }
-
 
     // You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD
     // Event bus for receiving Registry Events)
@@ -65,5 +74,6 @@ public class PracticeMod {
                     new ItemOne() // properties defined in separate class because it'd be a mess to define a complex item object here whereas BlockItems have simple properties
             );
         }
+
     }
 }
