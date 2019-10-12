@@ -1,19 +1,14 @@
-package com.denethweerasinghe.practicemod;
+package com.denethweerasinghe.practicemod.setup;
 
 import com.denethweerasinghe.practicemod.blocks.BlockOne;
 import com.denethweerasinghe.practicemod.blocks.BlockThree;
 import com.denethweerasinghe.practicemod.blocks.BlockTwo;
 import com.denethweerasinghe.practicemod.blocks.ModBlocks;
 import com.denethweerasinghe.practicemod.items.ItemOne;
-import com.denethweerasinghe.practicemod.setup.ClientProxy;
-import com.denethweerasinghe.practicemod.setup.IProxy;
-import com.denethweerasinghe.practicemod.setup.ModSetup;
-import com.denethweerasinghe.practicemod.setup.ServerProxy;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
