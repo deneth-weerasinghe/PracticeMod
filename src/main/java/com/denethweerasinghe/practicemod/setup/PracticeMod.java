@@ -21,6 +21,8 @@ import org.apache.logging.log4j.Logger;
 @Mod("practicemod")
 public class PracticeMod {
 
+    public static final String MODID = "practicemod";
+
     public static IProxy proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> ServerProxy::new);
     // proxy will hold two different values depending if code is server side or client side
 
