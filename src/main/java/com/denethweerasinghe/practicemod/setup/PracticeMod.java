@@ -4,6 +4,7 @@ import com.denethweerasinghe.practicemod.blocks.BlockOne;
 import com.denethweerasinghe.practicemod.blocks.BlockThree;
 import com.denethweerasinghe.practicemod.blocks.BlockTwo;
 import com.denethweerasinghe.practicemod.blocks.ModBlocks;
+import com.denethweerasinghe.practicemod.hudoverlay.HudEventHandler;
 import com.denethweerasinghe.practicemod.items.ItemOne;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
@@ -12,6 +13,7 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
@@ -33,12 +35,16 @@ public class PracticeMod {
     public PracticeMod() {
         // Register the setup method for modloading
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this ::setup);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::initClient);
     }
 
     private void setup(final FMLCommonSetupEvent event) {
         proxy.getClientWorld(); // will either run as usual or throw an exception uf the code runs on server side
         setup.init();
         proxy.init();
+    }
+    private void initClient(final FMLClientSetupEvent event){
+        HudEventHandler.init();
     }
 
     // You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD
