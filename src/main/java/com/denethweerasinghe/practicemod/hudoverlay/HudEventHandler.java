@@ -23,7 +23,7 @@ public class HudEventHandler {
     }
 
     @SubscribeEvent(priority = EventPriority.LOW)
-    public void onRender(RenderGameOverlayEvent.Post event) {
+    public void onRender(RenderGameOverlayEvent.Pre event) {
 
         if (event.getType() != RenderGameOverlayEvent.ElementType.EXPERIENCE)
             return;
@@ -33,17 +33,24 @@ public class HudEventHandler {
         Minecraft mc = Minecraft.getInstance();
         PlayerEntity player = (PlayerEntity) mc.getRenderViewEntity();
         FontRenderer fr = mc.fontRenderer;
+
+        //screen coordinates from which we draw our HUD elements
         int elementPosX = mc.mainWindow.getScaledWidth() / 2 + 10;
         int elementPosY = mc.mainWindow.getScaledHeight() - 49;
 
+        //makes sure the bar doesn't overwrite the air bar, which only appears under these conditions
         if (player.areEyesInFluid(FluidTags.WATER) || player.getAir() < 300) {
             elementPosY -= 10;
         }
+
+        //makes the bar visible only in survival or adventure mode
         if (player.isCreative() || player.isSpectator())
             return;
 
         mc.getTextureManager().bindTexture(barLocation);
         mc.ingameGUI.blit(elementPosX, elementPosY, 0, 0, 81, 9);
-        mc.ingameGUI.drawCenteredString(fr, "lmao", mc.mainWindow.getScaledWidth()/2, mc.mainWindow.getScaledHeight()/2, 0xFFFFFF);
+//        mc.ingameGUI.drawCenteredString(fr, "lmao", mc.mainWindow.getScaledWidth()/2, mc.mainWindow.getScaledHeight()/2, 0xFFFFFF);
+        int healthBarFraction = (int)(81 * (player.getHealth()/player.getMaxHealth()));
+        mc.ingameGUI.blit(elementPosX, elementPosY, 0,18,healthBarFraction,9);
     }
 }

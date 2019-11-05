@@ -38,7 +38,7 @@ public class PracticeMod {
     }
 
     private void setup(final FMLCommonSetupEvent event) {
-        proxy.getClientWorld(); // will either run as usual or throw an exception uf the code runs on server side
+        proxy.getClientWorld(); // will either run as usual or throw an exception if the code runs on server side
         setup.init();
         proxy.init();
     }
@@ -72,7 +72,7 @@ public class PracticeMod {
                     new BlockItem(ModBlocks.BLOCKTWO, properties).setRegistryName("blocktwo"),
                     new BlockItem(ModBlocks.BLOCKTHREE, properties).setRegistryName("blockthree"),
 
-                    // complex items/non-BlockItems
+                    // non-BlockItems
                     new ItemOne() // properties defined in separate class because it'd be a mess to define a complex item object here whereas BlockItems have simple properties
             );
         }
