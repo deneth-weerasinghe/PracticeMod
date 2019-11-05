@@ -1,11 +1,13 @@
 package com.denethweerasinghe.practicemod.setup;
 
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Items;
 import net.minecraftforge.event.entity.player.FillBucketEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 
 @Mod.EventBusSubscriber
 public class JumpEvent {
@@ -23,4 +25,11 @@ public class JumpEvent {
             System.out.println("Item Found!");
         }
     }
+
+    @SubscribeEvent
+    public static  void onEvent(PlayerEvent event){
+        PlayerEntity player = event.getPlayer();
+
+    }
+
 }

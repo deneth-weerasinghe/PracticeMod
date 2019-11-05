@@ -1,15 +1,20 @@
 package com.denethweerasinghe.practicemod.setup;
 
+import com.denethweerasinghe.practicemod.hudoverlay.HudEventHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.Mod;
 
-@Mod.EventBusSubscriber
 public class ClientProxy implements IProxy {
 
     @Override // client side initialisation
     public void init() {
     }
+
+    @Override
+    public void eventInit() {
+        HudEventHandler.init();
+    }
+
 
     @Override
     public World getClientWorld(){

@@ -4,7 +4,6 @@ import com.denethweerasinghe.practicemod.blocks.BlockOne;
 import com.denethweerasinghe.practicemod.blocks.BlockThree;
 import com.denethweerasinghe.practicemod.blocks.BlockTwo;
 import com.denethweerasinghe.practicemod.blocks.ModBlocks;
-import com.denethweerasinghe.practicemod.hudoverlay.HudEventHandler;
 import com.denethweerasinghe.practicemod.items.ItemOne;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
@@ -20,7 +19,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 // The value here should match an entry in the META-INF/mods.toml file
-@Mod("practicemod")
+@Mod(PracticeMod.MODID)
 public class PracticeMod {
 
     public static final String MODID = "practicemod";
@@ -44,7 +43,7 @@ public class PracticeMod {
         proxy.init();
     }
     private void initClient(final FMLClientSetupEvent event){
-        HudEventHandler.init();
+        proxy.eventInit();
     }
 
     // You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD

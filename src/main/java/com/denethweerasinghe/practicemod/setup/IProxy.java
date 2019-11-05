@@ -6,6 +6,8 @@ public interface IProxy {
 
     void init();
 
+    void eventInit();
+
     World getClientWorld(); // client side i.e. the player's world
 
 }
