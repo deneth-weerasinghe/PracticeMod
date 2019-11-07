@@ -31,5 +31,4 @@ public class JumpEvent {
         PlayerEntity player = event.getPlayer();
 
     }
-
 }

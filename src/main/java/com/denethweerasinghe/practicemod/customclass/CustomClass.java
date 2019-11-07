@@ -1,22 +1,31 @@
 package com.denethweerasinghe.practicemod.customclass;
 
+import net.minecraft.nbt.CompoundNBT;
+
 public class CustomClass {
-    private final int maxValue = 20;
-    private int counter;
+    private int counter = 20;
 
-    public CustomClass() {
-        counter = maxValue;
-    }
-
-    public void incrementCounter(){
-        counter ++;
-    }
-
-    public void decay(){
-        counter -= 1;
+    public CustomClass(){
     }
 
     public int getCounter(){
         return counter;
     }
+
+    public void setCounter(int counter){
+        this.counter = counter;
+    }
+
+    public void copyForRespawn(CustomClass deadPlayer){
+        counter = deadPlayer.counter;
+    }
+
+    public void saveNBTData(CompoundNBT compound){
+        compound.putInt("counter", counter);
+    }
+
+    public void setNBTData(CompoundNBT compound){
+        counter = compound.getInt("counter");
+    }
+
 }

@@ -23,7 +23,7 @@ public class HudEventHandler {
     }
 
     @SubscribeEvent(priority = EventPriority.LOW)
-    public void onRender(RenderGameOverlayEvent.Pre event) {
+    public void onRender(RenderGameOverlayEvent.Post event) {
 
         if (event.getType() != RenderGameOverlayEvent.ElementType.EXPERIENCE)
             return;
