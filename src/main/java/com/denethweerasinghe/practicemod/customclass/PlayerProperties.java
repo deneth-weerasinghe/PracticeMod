@@ -11,6 +11,6 @@ public class PlayerProperties {
     public static Capability<CustomClass> PLAYER_COUNTER;
 
     public static LazyOptional<CustomClass> getPlayerCounter(PlayerEntity player){
-        return player.getCapability(PLAYER_COUNTER, null);
+        return player.getCapability(PLAYER_COUNTER, null); //gets the capability from the player object
     }
 }
