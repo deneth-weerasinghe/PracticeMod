@@ -24,7 +24,8 @@ public class CustomClass {
         compound.putInt("counter", counter);
     }
 
-    public void setNBTData(CompoundNBT compound){
+    public void loadNBTData(CompoundNBT compound){
         counter = compound.getInt("counter");
     }
+
 }
