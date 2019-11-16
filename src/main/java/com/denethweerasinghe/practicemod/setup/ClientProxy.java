@@ -3,6 +3,7 @@ package com.denethweerasinghe.practicemod.setup;
 import com.denethweerasinghe.practicemod.hudoverlay.HudEventHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
 public class ClientProxy implements IProxy {
 
@@ -11,7 +12,10 @@ public class ClientProxy implements IProxy {
     }
 
     @Override
-    public void eventInit() {
+    public void setup(FMLCommonSetupEvent event) {
+    }
+
+    public static void eventInit() {
         HudEventHandler.init();
     }
 

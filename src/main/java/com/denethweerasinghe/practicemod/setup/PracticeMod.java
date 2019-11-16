@@ -4,10 +4,17 @@ import com.denethweerasinghe.practicemod.blocks.BlockOne;
 import com.denethweerasinghe.practicemod.blocks.BlockThree;
 import com.denethweerasinghe.practicemod.blocks.BlockTwo;
 import com.denethweerasinghe.practicemod.blocks.ModBlocks;
+import com.denethweerasinghe.practicemod.customclass.CustomClass;
+import com.denethweerasinghe.practicemod.customclass.PlayerPropertiesEvent;
 import com.denethweerasinghe.practicemod.items.ItemOne;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.nbt.INBT;
+import net.minecraft.util.Direction;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
@@ -38,12 +45,15 @@ public class PracticeMod {
     }
 
     private void setup(final FMLCommonSetupEvent event) {
+
+        MinecraftForge.EVENT_BUS.register(new PlayerPropertiesEvent());
+        registerCapabilities();
         proxy.getClientWorld(); // will either run as usual or throw an exception if the code runs on server side
         setup.init();
         proxy.init();
     }
     private void initClient(final FMLClientSetupEvent event){
-        proxy.eventInit();
+        ClientProxy.eventInit();
     }
 
     // You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD
@@ -77,5 +87,22 @@ public class PracticeMod {
             );
         }
 
+    }
+
+    private static void registerCapabilities(){
+        CapabilityManager.INSTANCE.register(CustomClass.class, new Capability.IStorage<CustomClass>() {
+
+            @Override
+            public void readNBT(Capability<CustomClass> capability, CustomClass customClass, Direction facing, INBT inbt) {
+                throw new UnsupportedOperationException();
+            }
+
+            @Override
+            public INBT writeNBT(Capability<CustomClass> capability, CustomClass instance, Direction side) {
+                throw new UnsupportedOperationException();
+            }
+        }, () -> {
+            throw new UnsupportedOperationException();
+        });
     }
 }

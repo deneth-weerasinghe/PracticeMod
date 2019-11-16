@@ -1,6 +1,7 @@
 package com.denethweerasinghe.practicemod.setup;
 
 import net.minecraft.world.World;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
 public class ServerProxy implements IProxy {
 
@@ -9,7 +10,7 @@ public class ServerProxy implements IProxy {
     }
 
     @Override
-    public void eventInit() {
+    public void setup(FMLCommonSetupEvent event) {
 
     }
 
