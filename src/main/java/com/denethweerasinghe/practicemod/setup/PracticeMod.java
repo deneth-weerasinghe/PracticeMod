@@ -51,6 +51,7 @@ public class PracticeMod {
         proxy.getClientWorld(); // will either run as usual or throw an exception if the code runs on server side
         setup.init();
         proxy.init();
+        proxy.setup(event);
     }
     private void initClient(final FMLClientSetupEvent event){
         ClientProxy.eventInit();

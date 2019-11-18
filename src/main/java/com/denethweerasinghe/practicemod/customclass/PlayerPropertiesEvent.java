@@ -11,10 +11,8 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class PlayerPropertiesEvent {
 
-    public static PlayerPropertiesEvent instance = new PlayerPropertiesEvent();
-
     @SubscribeEvent
-    public static void onEntityConstruction(AttachCapabilitiesEvent<Entity> event) {
+    public void onEntityConstruction(AttachCapabilitiesEvent<Entity> event) {
         if (event.getObject() instanceof PlayerEntity){
             if (!event.getObject().getCapability(PlayerProperties.PLAYER_COUNTER).isPresent()) {
                 event.addCapability(new ResourceLocation(PracticeMod.MODID, "properties"), new PlayerDispatcher());
@@ -23,7 +21,7 @@ public class PlayerPropertiesEvent {
     }
 
     @SubscribeEvent
-    public static void onPlayerCloned(PlayerEvent.Clone event){
+    public void onPlayerCloned(PlayerEvent.Clone event){
         if (event.isWasDeath()){
             LazyOptional<CustomClass> capability = event.getOriginal().getCapability(PlayerProperties.PLAYER_COUNTER);
             capability.ifPresent(oldStore -> {
@@ -33,6 +31,5 @@ public class PlayerPropertiesEvent {
             });
         }
     }
-
 }
 

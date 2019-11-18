@@ -3,7 +3,7 @@ package com.denethweerasinghe.practicemod.customclass;
 import net.minecraft.nbt.CompoundNBT;
 
 public class CustomClass {
-    private int counter;
+    private int counter = 20;
 
     public CustomClass(){
     }
@@ -12,8 +12,8 @@ public class CustomClass {
         return counter;
     }
 
-    public void setCounter(){
-        this.counter = 20;
+    public void setCounter(int value){
+        this.counter = value;
     }
 
     public void copyForRespawn(CustomClass deadPlayer){
