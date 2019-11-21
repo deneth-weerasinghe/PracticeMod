@@ -14,7 +14,7 @@ public class PlayerPropertiesEvent {
     @SubscribeEvent
     public void onEntityConstruction(AttachCapabilitiesEvent<Entity> event) {
         if (event.getObject() instanceof PlayerEntity){
-            if (!event.getObject().getCapability(PlayerProperties.PLAYER_COUNTER).isPresent()) {
+            if (!event.getObject().getCapability(PlayerDispatcher.PLAYER_COUNTER).isPresent()) {
                 event.addCapability(new ResourceLocation(PracticeMod.MODID, "properties"), new PlayerDispatcher());
             }
         }
