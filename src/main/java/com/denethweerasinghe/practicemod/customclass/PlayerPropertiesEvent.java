@@ -14,7 +14,7 @@ public class PlayerPropertiesEvent {
     @SubscribeEvent
     public void onEntityConstruction(AttachCapabilitiesEvent<Entity> event) {
         if (event.getObject() instanceof PlayerEntity){
-            if (!event.getObject().getCapability(PlayerProperties.PLAYER_COUNTER).isPresent()) {
+            if (!event.getObject().getCapability(PlayerDispatcher.capability).isPresent()) {
                 event.addCapability(new ResourceLocation(PracticeMod.MODID, "properties"), new PlayerDispatcher());
             }
         }
@@ -23,9 +23,9 @@ public class PlayerPropertiesEvent {
     @SubscribeEvent
     public void onPlayerCloned(PlayerEvent.Clone event){
         if (event.isWasDeath()){
-            LazyOptional<CustomClass> capability = event.getOriginal().getCapability(PlayerProperties.PLAYER_COUNTER);
+            LazyOptional<CustomClass> capability = event.getOriginal().getCapability(PlayerDispatcher.capability);
             capability.ifPresent(oldStore -> {
-                event.getEntityPlayer().getCapability(PlayerProperties.PLAYER_COUNTER).ifPresent(newStore -> {
+                event.getEntityPlayer().getCapability(PlayerDispatcher.capability).ifPresent(newStore -> {
                     newStore.copyForRespawn(oldStore);
                 });
             });

@@ -1,43 +1,34 @@
 package com.denethweerasinghe.practicemod.customclass;
 
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.INBT;
 import net.minecraft.util.Direction;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.common.util.LazyOptional;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class PlayerDispatcher implements ICapabilitySerializable<CompoundNBT> {
+public class PlayerDispatcher implements ICapabilitySerializable<INBT> {
 
-    private CustomClass counter = new CustomClass();
+    @CapabilityInject(CustomClass.class)
+    public static Capability<CustomClass> capability = null;
+    private LazyOptional<CustomClass> instance = LazyOptional.of(capability::getDefaultInstance);
 
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-        return getCapability(cap);
-    }
-
-    @Nonnull
-    @Override
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap) {
-        if (cap == PlayerProperties.PLAYER_COUNTER){
-            return LazyOptional.of(() -> (T) counter);
-        }
-        return LazyOptional.empty();
-    }
-
-
-    @Override
-    public CompoundNBT serializeNBT() {
-        CompoundNBT nbt = new CompoundNBT();
-        counter.saveNBTData(nbt);
-        return nbt;
+        return cap == capability ? instance.cast() : LazyOptional.empty();
     }
 
     @Override
-    public void deserializeNBT(CompoundNBT nbt) {
-        counter.loadNBTData(nbt);
+    public INBT serializeNBT() {
+        return capability.getStorage().writeNBT(capability, this.instance.orElseThrow(() -> new IllegalArgumentException("LazyOptional must not be empty!")), null);
+    }
+
+    @Override
+    public void deserializeNBT(INBT nbt) {
+        capability.getStorage().readNBT(capability, this.instance.orElseThrow(() -> new IllegalArgumentException("LazyOptional must not be empty!")), null, nbt);
     }
 }

@@ -4,16 +4,14 @@ import com.denethweerasinghe.practicemod.blocks.BlockOne;
 import com.denethweerasinghe.practicemod.blocks.BlockThree;
 import com.denethweerasinghe.practicemod.blocks.BlockTwo;
 import com.denethweerasinghe.practicemod.blocks.ModBlocks;
+import com.denethweerasinghe.practicemod.customclass.CounterStorage;
 import com.denethweerasinghe.practicemod.customclass.CustomClass;
 import com.denethweerasinghe.practicemod.customclass.PlayerPropertiesEvent;
 import com.denethweerasinghe.practicemod.items.ItemOne;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
-import net.minecraft.nbt.INBT;
-import net.minecraft.util.Direction;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -91,18 +89,7 @@ public class PracticeMod {
     }
 
     private static void registerCapabilities(){
-        CapabilityManager.INSTANCE.register(CustomClass.class, new Capability.IStorage<CustomClass>() {
-
-            @Override
-            public void readNBT(Capability<CustomClass> capability, CustomClass customClass, Direction facing, INBT inbt) {
-                throw new UnsupportedOperationException();
-            }
-
-            @Override
-            public INBT writeNBT(Capability<CustomClass> capability, CustomClass instance, Direction side) {
-                throw new UnsupportedOperationException();
-            }
-        }, () -> {
+        CapabilityManager.INSTANCE.register(CustomClass.class, new CounterStorage(), () -> {
             throw new UnsupportedOperationException();
         });
     }
