@@ -1,34 +1,44 @@
 package com.denethweerasinghe.practicemod.customclass;
 
-import net.minecraft.nbt.INBT;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.common.util.LazyOptional;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class PlayerDispatcher implements ICapabilitySerializable<INBT> {
+public class PlayerDispatcher implements ICapabilitySerializable<CompoundNBT> {
 
-    @CapabilityInject(CustomClass.class)
-    public static Capability<CustomClass> capability = null;
-    private LazyOptional<CustomClass> instance = LazyOptional.of(capability::getDefaultInstance);
+    private CustomClass counter = new CustomClass();
 
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-        return cap == capability ? instance.cast() : LazyOptional.empty();
+        return getCapability(cap);
+    }
+
+    @Nonnull
+    @Override
+    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap) {
+        if (cap == PlayerProperties.PLAYER_COUNTER){
+            return LazyOptional.of(() -> (T) counter);
+        }
+        return LazyOptional.empty();
+    }
+
+
+    @Override
+    public CompoundNBT serializeNBT() {
+//        CompoundNBT nbt = new CompoundNBT();
+//        counter.saveNBTData(nbt);
+        return (CompoundNBT) PlayerProperties.PLAYER_COUNTER.getStorage().writeNBT(PlayerProperties.PLAYER_COUNTER, counter, null);
     }
 
     @Override
-    public INBT serializeNBT() {
-        return capability.getStorage().writeNBT(capability, this.instance.orElseThrow(() -> new IllegalArgumentException("LazyOptional must not be empty!")), null);
-    }
-
-    @Override
-    public void deserializeNBT(INBT nbt) {
-        capability.getStorage().readNBT(capability, this.instance.orElseThrow(() -> new IllegalArgumentException("LazyOptional must not be empty!")), null, nbt);
+    public void deserializeNBT(CompoundNBT nbt) {
+//        counter.loadNBTData(nbt);
+        PlayerProperties.PLAYER_COUNTER.getStorage().readNBT(PlayerProperties.PLAYER_COUNTER, counter, null, nbt);
     }
 }
