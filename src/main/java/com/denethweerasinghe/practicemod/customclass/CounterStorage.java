@@ -8,15 +8,15 @@ import net.minecraftforge.common.capabilities.Capability;
 public class CounterStorage implements Capability.IStorage<CustomClass> {
 
     @Override
-    public INBT writeNBT(Capability<CustomClass> capability, CustomClass instance, Direction side){
-        CompoundNBT tag = new CompoundNBT();
-        tag.putInt("counter", instance.getCounter());
-        return tag;
+    public void readNBT(Capability<CustomClass> capability, CustomClass instance, Direction facing, INBT nbt) {
+        instance.loadNBTData((CompoundNBT)nbt);
     }
 
     @Override
-    public void readNBT(Capability<CustomClass> capability, CustomClass instance, Direction side, INBT nbt){
-        CompoundNBT tag = (CompoundNBT) nbt;
-        instance.setCounter(tag.getInt("counter"));
+    public CompoundNBT writeNBT(Capability<CustomClass> capability, CustomClass instance, Direction side) {
+        CompoundNBT nbttag = new CompoundNBT();
+        instance.saveNBTData(nbttag);
+        return nbttag;
     }
+
 }

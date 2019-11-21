@@ -1,20 +1,21 @@
 package com.denethweerasinghe.practicemod.customclass;
 
-public class CustomClass {
+public class CustomClass implements ICustomClass{
+
     private int counter = 20;
 
-    public CustomClass(){
-    }
-
-    public int getCounter(){
+    @Override
+    public int getCounter() {
         return counter;
     }
 
-    public void setCounter(int value){
+    @Override
+    public void setCounter(int value) {
         this.counter = value;
     }
 
-    public void copyForRespawn(CustomClass deadPlayer){
+    @Override
+    public void copyForRespawn(CustomClass deadPlayer) {
         counter = deadPlayer.counter;
     }
 

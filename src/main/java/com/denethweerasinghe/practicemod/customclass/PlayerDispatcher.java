@@ -3,6 +3,7 @@ package com.denethweerasinghe.practicemod.customclass;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.common.util.LazyOptional;
 
@@ -11,22 +12,26 @@ import javax.annotation.Nullable;
 
 public class PlayerDispatcher implements ICapabilitySerializable<CompoundNBT> {
 
-    private CustomClass counter = new CustomClass();
+    @CapabilityInject(ICustomClass.class)
+    public static final Capability<ICustomClass> PLAYER_COUNTER = null;
+    private ICustomClass instance = PLAYER_COUNTER.getDefaultInstance();
+
+//    private CustomClass counter = new CustomClass();
 
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-        return getCapability(cap);
+        //FINISH THIS!
     }
 
-    @Nonnull
-    @Override
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap) {
-        if (cap == PlayerProperties.PLAYER_COUNTER){
-            return LazyOptional.of(() -> (T) counter);
-        }
-        return LazyOptional.empty();
-    }
+//    @Nonnull
+//    @Override
+//    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap) {
+//        if (cap == PLAYER_COUNTER){
+//            return LazyOptional.of(() -> (T) counter);
+//        }
+//        return LazyOptional.empty();
+//    }
 
 
     @Override

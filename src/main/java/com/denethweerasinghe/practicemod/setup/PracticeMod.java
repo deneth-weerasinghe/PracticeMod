@@ -11,7 +11,11 @@ import com.denethweerasinghe.practicemod.items.ItemOne;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.INBT;
+import net.minecraft.util.Direction;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -89,8 +93,6 @@ public class PracticeMod {
     }
 
     private static void registerCapabilities(){
-        CapabilityManager.INSTANCE.register(CustomClass.class, new CounterStorage(), () -> {
-            throw new UnsupportedOperationException();
-        });
+        CapabilityManager.INSTANCE.register(CustomClass.class, new CounterStorage(), CustomClass::new);
     }
 }
