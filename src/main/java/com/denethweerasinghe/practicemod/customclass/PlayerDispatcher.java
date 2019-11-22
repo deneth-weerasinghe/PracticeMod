@@ -14,14 +14,16 @@ public class PlayerDispatcher implements ICapabilitySerializable<CompoundNBT> {
 
     @CapabilityInject(ICustomClass.class)
     public static final Capability<ICustomClass> PLAYER_COUNTER = null;
+
     private ICustomClass instance = PLAYER_COUNTER.getDefaultInstance();
 
 //    private CustomClass counter = new CustomClass();
 
+    @SuppressWarnings("unchecked")
     @Nonnull
     @Override
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-        //FINISH THIS!
+    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, Direction side) {
+        return (LazyOptional<T>) LazyOptional.of(() -> new CustomClass());
     }
 
 //    @Nonnull
@@ -36,14 +38,14 @@ public class PlayerDispatcher implements ICapabilitySerializable<CompoundNBT> {
 
     @Override
     public CompoundNBT serializeNBT() {
-//        CompoundNBT nbt = new CompoundNBT();
-//        counter.saveNBTData(nbt);
-        return (CompoundNBT) PlayerProperties.PLAYER_COUNTER.getStorage().writeNBT(PlayerProperties.PLAYER_COUNTER, counter, null);
+        CompoundNBT nbt = new CompoundNBT();
+        return PLAYER_COUNTER.getDefaultInstance().saveNBTData(nbt);
+//        return (CompoundNBT) PLAYER_COUNTER.getStorage().writeNBT(PLAYER_COUNTER, instance, null);
     }
 
     @Override
     public void deserializeNBT(CompoundNBT nbt) {
-//        counter.loadNBTData(nbt);
-        PlayerProperties.PLAYER_COUNTER.getStorage().readNBT(PlayerProperties.PLAYER_COUNTER, counter, null, nbt);
+        PLAYER_COUNTER.getDefaultInstance().loadNBTData(nbt);
+//        PLAYER_COUNTER.getStorage().readNBT(PLAYER_COUNTER, instance, null, nbt);
     }
 }

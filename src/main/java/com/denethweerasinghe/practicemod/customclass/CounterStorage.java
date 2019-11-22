@@ -5,8 +5,9 @@ import net.minecraft.nbt.INBT;
 import net.minecraft.util.Direction;
 import net.minecraftforge.common.capabilities.Capability;
 
-public class CounterStorage implements Capability.IStorage<CustomClass> {
+import javax.annotation.Nullable;
 
+public class CounterStorage implements Capability.IStorage<CustomClass> {
     @Override
     public void readNBT(Capability<CustomClass> capability, CustomClass instance, Direction facing, INBT nbt) {
         instance.loadNBTData((CompoundNBT)nbt);
@@ -18,5 +19,21 @@ public class CounterStorage implements Capability.IStorage<CustomClass> {
         instance.saveNBTData(nbttag);
         return nbttag;
     }
+//    @Override
+//    public INBT writeNBT(Capability<ICustomClass> capability, ICustomClass instance, Direction side) {
+//        CompoundNBT tag = new CompoundNBT();
+//        tag.putInt("counter", instance.getCounter());
+//        return tag;
+//    }
+//        return instance.saveNBTData(new CompoundNBT());
+//}
 
+//    @Override
+//    public void readNBT(Capability<ICustomClass> capability, ICustomClass instance, Direction side, INBT nbt) {
+//        CompoundNBT tag = (CompoundNBT) nbt;
+//        instance.setCounter(tag.getInt("counter"));
+//    }
+//}
+//        instance.loadNBTData((CompoundNBT) nbt);
+//    }
 }

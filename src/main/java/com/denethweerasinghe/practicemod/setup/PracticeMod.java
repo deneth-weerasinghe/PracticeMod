@@ -6,6 +6,7 @@ import com.denethweerasinghe.practicemod.blocks.BlockTwo;
 import com.denethweerasinghe.practicemod.blocks.ModBlocks;
 import com.denethweerasinghe.practicemod.customclass.CounterStorage;
 import com.denethweerasinghe.practicemod.customclass.CustomClass;
+import com.denethweerasinghe.practicemod.customclass.ICustomClass;
 import com.denethweerasinghe.practicemod.customclass.PlayerPropertiesEvent;
 import com.denethweerasinghe.practicemod.items.ItemOne;
 import net.minecraft.block.Block;
