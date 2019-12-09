@@ -7,33 +7,18 @@ import net.minecraftforge.common.capabilities.Capability;
 
 import javax.annotation.Nullable;
 
-public class CounterStorage implements Capability.IStorage<CustomClass> {
+public class CounterStorage implements Capability.IStorage<ICustomClass> {
+    @Nullable
     @Override
-    public void readNBT(Capability<CustomClass> capability, CustomClass instance, Direction facing, INBT nbt) {
-        instance.loadNBTData((CompoundNBT)nbt);
+    public INBT writeNBT(Capability<ICustomClass> capability, ICustomClass instance, Direction side) {
+        CompoundNBT tag = new CompoundNBT();
+        tag.putInt("counter", instance.getCounter());
+        return tag;
     }
 
     @Override
-    public CompoundNBT writeNBT(Capability<CustomClass> capability, CustomClass instance, Direction side) {
-        CompoundNBT nbttag = new CompoundNBT();
-        instance.saveNBTData(nbttag);
-        return nbttag;
+    public void readNBT(Capability<ICustomClass> capability, ICustomClass instance, Direction side, INBT nbt) {
+        CompoundNBT tag = (CompoundNBT) nbt;
+        instance.setCounter(tag.getInt("counter"));
     }
-//    @Override
-//    public INBT writeNBT(Capability<ICustomClass> capability, ICustomClass instance, Direction side) {
-//        CompoundNBT tag = new CompoundNBT();
-//        tag.putInt("counter", instance.getCounter());
-//        return tag;
-//    }
-//        return instance.saveNBTData(new CompoundNBT());
-//}
-
-//    @Override
-//    public void readNBT(Capability<ICustomClass> capability, ICustomClass instance, Direction side, INBT nbt) {
-//        CompoundNBT tag = (CompoundNBT) nbt;
-//        instance.setCounter(tag.getInt("counter"));
-//    }
-//}
-//        instance.loadNBTData((CompoundNBT) nbt);
-//    }
 }

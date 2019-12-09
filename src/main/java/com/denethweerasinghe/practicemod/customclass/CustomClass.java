@@ -1,5 +1,9 @@
 package com.denethweerasinghe.practicemod.customclass;
 
+import com.denethweerasinghe.practicemod.network.PacketManager;
+import com.denethweerasinghe.practicemod.network.SyncPacket;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 
 public class CustomClass implements ICustomClass{
@@ -17,24 +21,15 @@ public class CustomClass implements ICustomClass{
     }
 
     @Override
-    public void increment(int value) {
-        counter += value;
+    public void copyForRespawn(ICustomClass deadPlayer) {
+        this.setCounter(deadPlayer.getCounter());
     }
 
-    @Override
-    public void copyForRespawn(CustomClass deadPlayer) {
-        counter = deadPlayer.counter;
+    public static ICustomClass getFromPlayer(PlayerEntity player){
+        return player.getCapability(PlayerDispatcher.PLAYER_COUNTER, null).orElseThrow(() -> new IllegalArgumentException(("LazyOptional must not be empty!")));
     }
 
-    @Override
-    public CompoundNBT saveNBTData(CompoundNBT compound) {
-        compound.putInt("counter", counter);
-        return compound;
+    public static void updateClient(ServerPlayerEntity player, ICustomClass cap){
+        PacketManager.sendTo(player, new SyncPacket(player.getEntityId(), (CompoundNBT) PlayerDispatcher.PLAYER_COUNTER.writeNBT(cap, null)));
     }
-
-    @Override
-    public void loadNBTData(CompoundNBT compound) {
-        counter = compound.getInt("counter");
-    }
-
 }

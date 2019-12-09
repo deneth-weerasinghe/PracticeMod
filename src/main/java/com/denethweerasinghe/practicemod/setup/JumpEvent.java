@@ -1,9 +1,11 @@
 package com.denethweerasinghe.practicemod.setup;
 
-import com.denethweerasinghe.practicemod.customclass.PlayerDispatcher;
+import com.denethweerasinghe.practicemod.customclass.CustomClass;
+import com.denethweerasinghe.practicemod.customclass.ICustomClass;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -15,31 +17,36 @@ public class JumpEvent {
     @SubscribeEvent
     public static void onPlayerLogIn(net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent event){
         PlayerEntity player = event.getPlayer();
-        player.getCapability(PlayerDispatcher.PLAYER_COUNTER).ifPresent(customClass -> {
-            int test = customClass.getCounter();
-            System.out.println("Test value is: "+test);
-        });
+        ICustomClass cap = CustomClass.getFromPlayer(player);
+        PracticeMod.LOGGER.info("Current value is: " + cap.getCounter());
+//        cap.setCounter(cap.getCounter());
+
+//        CompoundNBT data = player.getEntity().getEntityData();
+//        CompoundNBT tag = data.getCompound("practiceMod");
+//        cap.setCounter(tag.getInt("counter"));
+//        data.remove("practiceMod");
     }
 
     @SubscribeEvent
-    public static void onTest(PlayerInteractEvent.RightClickItem event){
-        if (event.getItemStack().getItem() == Items.GUNPOWDER){
-            event.getEntityPlayer().getCapability(PlayerDispatcher.PLAYER_COUNTER).ifPresent(customClass -> {
-                customClass.increment(10);
-                System.out.println("Current value is: " + customClass.getCounter());
-            });
+    public static void onTest(PlayerInteractEvent.RightClickItem event) {
+
+        PlayerEntity player = event.getEntityPlayer();
+        ICustomClass cap = CustomClass.getFromPlayer(player);
+
+        if (event.getItemStack().getItem() == Items.GUNPOWDER) {
+            cap.setCounter(cap.getCounter() + 10);
+            PracticeMod.LOGGER.info("new value is: " + cap.getCounter());
         }
     }
-
     @SubscribeEvent
     public static void onAirRightClick(PlayerInteractEvent.RightClickEmpty event) {
-        ItemStack item = event.getEntityPlayer().getHeldItemMainhand();
+
+        PlayerEntity player = event.getEntityPlayer();
+        ICustomClass cap = CustomClass.getFromPlayer(player);
+        ItemStack item = player.getHeldItemMainhand();
+
         if (item.isEmpty()) {
-            event.getEntityPlayer().getCapability(PlayerDispatcher.PLAYER_COUNTER).ifPresent(customClass -> {
-                System.out.println("Current value is: " + customClass.getCounter());
-            });
+            PracticeMod.LOGGER.info("Current value is: " + cap.getCounter());
         }
     }
-
-
 }

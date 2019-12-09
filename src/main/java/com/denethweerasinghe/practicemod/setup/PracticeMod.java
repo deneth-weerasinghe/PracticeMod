@@ -9,14 +9,11 @@ import com.denethweerasinghe.practicemod.customclass.CustomClass;
 import com.denethweerasinghe.practicemod.customclass.ICustomClass;
 import com.denethweerasinghe.practicemod.customclass.PlayerPropertiesEvent;
 import com.denethweerasinghe.practicemod.items.ItemOne;
+import com.denethweerasinghe.practicemod.network.PacketManager;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.INBT;
-import net.minecraft.util.Direction;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -39,7 +36,7 @@ public class PracticeMod {
 
     public static ModSetup setup = new ModSetup();
     // Directly reference a log4j logger.
-    private static final Logger LOGGER = LogManager.getLogger();
+    public static final Logger LOGGER = LogManager.getLogger();
 
     public PracticeMod() {
         // Register the setup method for modloading
@@ -51,6 +48,7 @@ public class PracticeMod {
 
         MinecraftForge.EVENT_BUS.register(new PlayerPropertiesEvent());
         registerCapabilities();
+        PacketManager.register();
         proxy.getClientWorld(); // will either run as usual or throw an exception if the code runs on server side
         setup.init();
         proxy.init();
@@ -94,6 +92,6 @@ public class PracticeMod {
     }
 
     private static void registerCapabilities(){
-        CapabilityManager.INSTANCE.register(CustomClass.class, new CounterStorage(), CustomClass::new);
+        CapabilityManager.INSTANCE.register(ICustomClass.class, new CounterStorage(), CustomClass::new);
     }
 }
