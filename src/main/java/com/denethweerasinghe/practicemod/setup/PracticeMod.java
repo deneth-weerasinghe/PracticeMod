@@ -46,7 +46,7 @@ public class PracticeMod {
 
     private void setup(final FMLCommonSetupEvent event) {
 
-        MinecraftForge.EVENT_BUS.register(new PlayerPropertiesEvent());
+//        MinecraftForge.EVENT_BUS.register(new PlayerPropertiesEvent());
         registerCapabilities();
         PacketManager.register();
         proxy.getClientWorld(); // will either run as usual or throw an exception if the code runs on server side

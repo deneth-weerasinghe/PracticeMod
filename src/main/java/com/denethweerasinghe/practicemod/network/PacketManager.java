@@ -10,14 +10,18 @@ import net.minecraftforge.fml.network.simple.SimpleChannel;
 public class PacketManager {
 
     public static final SimpleChannel INSTANCE = NetworkRegistry.newSimpleChannel(
-            new ResourceLocation(PracticeMod.MODID, "practicemod"),
+            new ResourceLocation(PracticeMod.MODID, "practicemodmanager"),
             () -> "1",
             "1"::equals,
             "1"::equals);
 
     public static void register(){
         int id = 0;
-        INSTANCE.registerMessage(id++, SyncPacket.class, SyncPacket::encode, SyncPacket::decode, SyncPacket::handle);
+        INSTANCE.registerMessage(id++,
+                SyncPacket.class,
+                SyncPacket::encode,
+                SyncPacket::decode,
+                SyncPacket::handle);
     }
 
     public static void sendToServer(Object msg){

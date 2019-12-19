@@ -7,17 +7,14 @@ import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.common.util.LazyOptional;
 
-import javax.annotation.Nonnull;
-
 public class PlayerDispatcher implements ICapabilitySerializable<CompoundNBT> {
 
     @CapabilityInject(ICustomClass.class)
     public static final Capability<ICustomClass> PLAYER_COUNTER = null;
     private LazyOptional<ICustomClass> instance = LazyOptional.of(PLAYER_COUNTER::getDefaultInstance);
 
-    @Nonnull
     @Override
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, Direction side) {
+    public <T> LazyOptional<T> getCapability(Capability<T> cap, Direction side) {
         return cap == PLAYER_COUNTER ? instance.cast() : LazyOptional.empty();
     }
 

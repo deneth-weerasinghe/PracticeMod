@@ -8,7 +8,23 @@ import net.minecraft.nbt.CompoundNBT;
 
 public class CustomClass implements ICustomClass{
 
-    private int counter = 20;
+    private int counter;
+    private int version;
+
+    public CustomClass(){
+        this.counter = 20;
+        this.version = 1;
+    }
+
+    @Override
+    public void setVersion(int value) {
+        this.version = value;
+    }
+
+    @Override
+    public int getVersion() {
+        return version;
+    }
 
     @Override
     public void setCounter(int value) {
