@@ -10,8 +10,9 @@ import net.minecraftforge.common.util.LazyOptional;
 public class PlayerDispatcher implements ICapabilitySerializable<CompoundNBT> {
 
     @CapabilityInject(ICustomClass.class)
-    public static final Capability<ICustomClass> PLAYER_COUNTER = null;
-    private LazyOptional<ICustomClass> instance = LazyOptional.of(PLAYER_COUNTER::getDefaultInstance);
+    public static Capability<ICustomClass> PLAYER_COUNTER = null;
+    private final LazyOptional<ICustomClass> instance = LazyOptional.of(PLAYER_COUNTER::getDefaultInstance);
+
 
     @Override
     public <T> LazyOptional<T> getCapability(Capability<T> cap, Direction side) {
@@ -20,14 +21,11 @@ public class PlayerDispatcher implements ICapabilitySerializable<CompoundNBT> {
 
     @Override
     public CompoundNBT serializeNBT() {
-//        CompoundNBT nbt = new CompoundNBT();
-//        return PLAYER_COUNTER.getDefaultInstance().saveNBTData(nbt);
-        return (CompoundNBT) PLAYER_COUNTER.getStorage().writeNBT(PLAYER_COUNTER, instance.orElseThrow(() -> new IllegalArgumentException("LazyOptional must not be empty!")), null);
+        return (CompoundNBT) PLAYER_COUNTER.getStorage().writeNBT(PLAYER_COUNTER, this.instance.orElseThrow(() -> new IllegalArgumentException("LazyOptional must not be empty!")), null);
     }
 
     @Override
     public void deserializeNBT(CompoundNBT nbt) {
-//        PLAYER_COUNTER.getDefaultInstance().loadNBTData(nbt);
-        PLAYER_COUNTER.getStorage().readNBT(PLAYER_COUNTER, instance.orElseThrow(() -> new IllegalArgumentException("LazyOptional must not be empty!")), null, nbt);
+        PLAYER_COUNTER.getStorage().readNBT(PLAYER_COUNTER, this.instance.orElseThrow(() -> new IllegalArgumentException("LazyOptional must not be empty!")), null, nbt);
     }
 }
