@@ -11,7 +11,6 @@ public class ServerProxy implements IProxy {
 
     @Override
     public void setup(FMLCommonSetupEvent event) {
-
     }
 
     @Override

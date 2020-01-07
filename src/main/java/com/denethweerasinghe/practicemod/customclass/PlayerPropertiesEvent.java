@@ -25,5 +25,6 @@ public class PlayerPropertiesEvent {
         ICustomClass newCounter = CustomClass.getFromPlayer(newPlayer);
         newCounter.copyForRespawn(oldCounter);
     }
+
 }
 

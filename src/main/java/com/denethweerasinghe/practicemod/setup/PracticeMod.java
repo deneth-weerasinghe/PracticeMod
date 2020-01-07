@@ -45,9 +45,9 @@ public class PracticeMod {
     }
 
     private void setup(final FMLCommonSetupEvent event) {
-
+        PracticeMod.LOGGER.info("REGISTERING CAPABILITIES");
         MinecraftForge.EVENT_BUS.register(new PlayerPropertiesEvent());
-        registerCapabilities();
+        CapabilityManager.INSTANCE.register(ICustomClass.class, new CounterStorage(), CustomClass::new);
         PacketManager.register();
         proxy.getClientWorld(); // will either run as usual or throw an exception if the code runs on server side
         setup.init();
@@ -92,6 +92,5 @@ public class PracticeMod {
     }
 
     private static void registerCapabilities(){
-        CapabilityManager.INSTANCE.register(ICustomClass.class, new CounterStorage(), CustomClass::new);
     }
 }
