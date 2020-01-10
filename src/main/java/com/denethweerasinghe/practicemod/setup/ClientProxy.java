@@ -1,6 +1,6 @@
 package com.denethweerasinghe.practicemod.setup;
 
-import com.denethweerasinghe.practicemod.hudoverlay.HudEventHandler;
+import com.denethweerasinghe.practicemod.handlers.HudEventHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;

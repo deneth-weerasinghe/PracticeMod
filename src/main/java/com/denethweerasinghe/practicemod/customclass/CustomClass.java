@@ -1,7 +1,7 @@
 package com.denethweerasinghe.practicemod.customclass;
 
 import com.denethweerasinghe.practicemod.network.PacketManager;
-import com.denethweerasinghe.practicemod.network.SyncPacket;
+import com.denethweerasinghe.practicemod.network.UpdateClientHydration;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
@@ -38,7 +38,7 @@ public class CustomClass implements ICustomClass{
 
     @Override
     public void copyForRespawn(ICustomClass deadPlayer) {
-        this.setCounter(deadPlayer.getCounter());
+        this.setCounter(deadPlayer.getCounter() - 100);
     }
 
     public static ICustomClass getFromPlayer(PlayerEntity player){
@@ -46,6 +46,6 @@ public class CustomClass implements ICustomClass{
     }
 
     public static void updateClient(ServerPlayerEntity player, ICustomClass cap){
-        PacketManager.sendTo(player, new SyncPacket(player.getEntityId(), (CompoundNBT) PlayerDispatcher.PLAYER_COUNTER.writeNBT(cap, null)));
+        PacketManager.sendTo(player, new UpdateClientHydration(player.getEntityId(), (CompoundNBT) PlayerDispatcher.PLAYER_COUNTER.writeNBT(cap, null)));
     }
 }

@@ -1,5 +1,8 @@
-package com.denethweerasinghe.practicemod.customclass;
+package com.denethweerasinghe.practicemod.handlers;
 
+import com.denethweerasinghe.practicemod.customclass.CustomClass;
+import com.denethweerasinghe.practicemod.customclass.ICustomClass;
+import com.denethweerasinghe.practicemod.customclass.PlayerDispatcher;
 import com.denethweerasinghe.practicemod.setup.PracticeMod;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
