@@ -7,7 +7,9 @@ import com.denethweerasinghe.practicemod.blocks.ModBlocks;
 import com.denethweerasinghe.practicemod.customclass.CounterStorage;
 import com.denethweerasinghe.practicemod.customclass.CustomClass;
 import com.denethweerasinghe.practicemod.customclass.ICustomClass;
-import com.denethweerasinghe.practicemod.customclass.PlayerPropertiesEvent;
+import com.denethweerasinghe.practicemod.handlers.EventHandler;
+import com.denethweerasinghe.practicemod.handlers.HudEventHandler;
+import com.denethweerasinghe.practicemod.handlers.PlayerPropertiesEvent;
 import com.denethweerasinghe.practicemod.items.ItemOne;
 import com.denethweerasinghe.practicemod.network.PacketManager;
 import net.minecraft.block.Block;
@@ -46,6 +48,7 @@ public class PracticeMod {
 
     private void setup(final FMLCommonSetupEvent event) {
         PracticeMod.LOGGER.info("REGISTERING CAPABILITIES");
+        EventHandler.init();
         MinecraftForge.EVENT_BUS.register(new PlayerPropertiesEvent());
         CapabilityManager.INSTANCE.register(ICustomClass.class, new CounterStorage(), CustomClass::new);
         PacketManager.register();
@@ -55,7 +58,7 @@ public class PracticeMod {
         proxy.setup(event);
     }
     private void initClient(final FMLClientSetupEvent event){
-        ClientProxy.eventInit();
+        HudEventHandler.init();
     }
 
     // You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD
