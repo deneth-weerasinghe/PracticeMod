@@ -37,8 +37,8 @@ public class CustomClass implements ICustomClass{
     }
 
     @Override
-    public void copyForRespawn(ICustomClass deadPlayer) {
-        this.setCounter(deadPlayer.getCounter() - 100);
+    public void copyForRespawn(ICustomClass oldCap) {
+        this.setCounter(oldCap.getCounter() - 100);
     }
 
     public static ICustomClass getFromPlayer(PlayerEntity player){

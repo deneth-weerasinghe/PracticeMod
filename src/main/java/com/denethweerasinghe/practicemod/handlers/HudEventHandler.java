@@ -48,11 +48,11 @@ public class HudEventHandler {
         if (player.isCreative() || player.isSpectator())
             return;
 
-        ICustomClass cap = CustomClass.getFromPlayer(player);
+//        ICustomClass cap = CustomClass.getFromPlayer(player);
 
         mc.getTextureManager().bindTexture(barLocation);
         mc.ingameGUI.blit(elementPosX, elementPosY, 0, 0, 81, 9);
-        mc.ingameGUI.drawCenteredString(fr, String.valueOf(cap.getCounter()), mc.mainWindow.getScaledWidth()/2, mc.mainWindow.getScaledHeight()/2, 0xFFFFFF);
+//        mc.ingameGUI.drawCenteredString(fr, String.valueOf(cap.getCounter()), mc.mainWindow.getScaledWidth()/2, mc.mainWindow.getScaledHeight()/2, 0xFFFFFF);
         int healthBarFraction = (int)(81 * (player.getHealth()/player.getMaxHealth()));
         mc.ingameGUI.blit(elementPosX, elementPosY, 0,18,healthBarFraction,9);
     }

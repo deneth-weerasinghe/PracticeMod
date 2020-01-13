@@ -3,11 +3,13 @@ package com.denethweerasinghe.practicemod.handlers;
 import com.denethweerasinghe.practicemod.customclass.CustomClass;
 import com.denethweerasinghe.practicemod.customclass.ICustomClass;
 import com.denethweerasinghe.practicemod.setup.PracticeMod;
+import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Items;
 import net.minecraft.world.IWorld;
+import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
@@ -22,18 +24,18 @@ public class EventHandler {
         MinecraftForge.EVENT_BUS.register(new EventHandler());
     }
 
-    @SubscribeEvent
-    public void onRightClick(PlayerInteractEvent.RightClickItem event) {
-        PlayerEntity player = event.getEntityPlayer();
-        if (player instanceof ServerPlayerEntity) {
-            PracticeMod.LOGGER.info("this **is** the server");
-            ICustomClass cap = CustomClass.getFromPlayer(player);
-            if (event.getItemStack().getItem() == Items.GUNPOWDER) {
-                cap.setCounter(cap.getCounter() + 10);
-                PracticeMod.LOGGER.info("new value is: " + cap.getCounter());
-            }
-        }
-    }
+//    @SubscribeEvent
+//    public void onRightClick(PlayerInteractEvent.RightClickItem event) {
+//        PlayerEntity player = event.getEntityPlayer();
+//        if (player instanceof ServerPlayerEntity) {
+//            PracticeMod.LOGGER.info("this **is** the server");
+//            ICustomClass cap = CustomClass.getFromPlayer(player);
+//            if (event.getItemStack().getItem() == Items.GUNPOWDER) {
+//                cap.setCounter(cap.getCounter() + 10);
+//                PracticeMod.LOGGER.info("new value is: " + cap.getCounter());
+//            }
+//        }
+//    }
 
     @SubscribeEvent
     public void onPlayerLogIn(PlayerEvent.PlayerLoggedInEvent event){
@@ -42,6 +44,20 @@ public class EventHandler {
         if (player instanceof ServerPlayerEntity) {
             PracticeMod.LOGGER.info("LOGGING IN");
             CustomClass.updateClient((ServerPlayerEntity) player, CustomClass.getFromPlayer(player));
+        }
+    }
+
+    @SubscribeEvent
+    public void onRightClickBlock(PlayerInteractEvent.RightClickBlock event){
+        World world = event.getWorld();
+        if (!world.isRemote){
+            PracticeMod.LOGGER.debug("WE'RE IN THE SERVER SIDE!");
+            if (world.getBlockState(event.getPos()).getBlock() == Blocks.COBBLESTONE){
+                PlayerEntity player = event.getEntityPlayer();
+                ICustomClass cap = CustomClass.getFromPlayer(player);
+                cap.setCounter(cap.getCounter() + 10);
+                PracticeMod.LOGGER.debug("SETTING COUNTER TO: " + cap.getCounter());
+            }
         }
     }
 

@@ -29,18 +29,18 @@ public class ItemOne extends Item {
         setRegistryName("itemone");
     }
 
-    @Override
-    public ActionResultType onItemUse(ItemUseContext context) {
-        World world = context.getWorld();
-        if (!world.isRemote) {
-            if (world.getBlockState(context.getPos()).getBlock() == Blocks.WATER) {
-                ICustomClass cap = CustomClass.getFromPlayer(context.getPlayer());
-                cap.setCounter(cap.getCounter() + 10);
-                PracticeMod.LOGGER.info("new value is: " + cap.getCounter());
-            }
-        }
-        return ActionResultType.SUCCESS;
-    }
+//    @Override
+//    public ActionResultType onItemUse(ItemUseContext context) {
+//        World world = context.getWorld();
+//        if (!world.isRemote) {
+//            if (world.getBlockState(context.getPos()).getBlock() == Blocks.WATER) {
+//                ICustomClass cap = CustomClass.getFromPlayer(context.getPlayer());
+//                cap.setCounter(cap.getCounter() + 10);
+//                PracticeMod.LOGGER.info("new value is: " + cap.getCounter());
+//            }
+//        }
+//        return ActionResultType.SUCCESS;
+//    }
 
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn){
